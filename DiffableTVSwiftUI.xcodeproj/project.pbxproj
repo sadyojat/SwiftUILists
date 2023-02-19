@@ -16,8 +16,12 @@
 		84006EF529A1F6B200F1FC34 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EF429A1F6B200F1FC34 /* Album.swift */; };
 		84006EF729A1F7A600F1FC34 /* AlbumsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EF629A1F7A600F1FC34 /* AlbumsMainView.swift */; };
 		84006EF929A1FCD500F1FC34 /* AlbumGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EF829A1FCD500F1FC34 /* AlbumGridView.swift */; };
+		84006EFB29A2EA1A00F1FC34 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EFA29A2EA1A00F1FC34 /* PostCellView.swift */; };
+		84006EFE29A2EA4A00F1FC34 /* PostCellTrailingSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EFD29A2EA4A00F1FC34 /* PostCellTrailingSwipeView.swift */; };
+		84006F0029A2EA5A00F1FC34 /* PostCellLeadingSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006EFF29A2EA5A00F1FC34 /* PostCellLeadingSwipeView.swift */; };
+		84006F0229A2ED0100F1FC34 /* GridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84006F0129A2ED0100F1FC34 /* GridImage.swift */; };
 		84184528299DF9750002B147 /* DiffableTVSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84184527299DF9750002B147 /* DiffableTVSwiftUIApp.swift */; };
-		8418452A299DF9750002B147 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84184529299DF9750002B147 /* ContentView.swift */; };
+		8418452A299DF9750002B147 /* PostsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84184529299DF9750002B147 /* PostsMainView.swift */; };
 		8418452C299DF9760002B147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8418452B299DF9760002B147 /* Assets.xcassets */; };
 		8418452F299DF9760002B147 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8418452E299DF9760002B147 /* Preview Assets.xcassets */; };
 		84184537299DF9FD0002B147 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84184536299DF9FD0002B147 /* Post.swift */; };
@@ -40,9 +44,13 @@
 		84006EF429A1F6B200F1FC34 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		84006EF629A1F7A600F1FC34 /* AlbumsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsMainView.swift; sourceTree = "<group>"; };
 		84006EF829A1FCD500F1FC34 /* AlbumGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumGridView.swift; sourceTree = "<group>"; };
+		84006EFA29A2EA1A00F1FC34 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
+		84006EFD29A2EA4A00F1FC34 /* PostCellTrailingSwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellTrailingSwipeView.swift; sourceTree = "<group>"; };
+		84006EFF29A2EA5A00F1FC34 /* PostCellLeadingSwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellLeadingSwipeView.swift; sourceTree = "<group>"; };
+		84006F0129A2ED0100F1FC34 /* GridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridImage.swift; sourceTree = "<group>"; };
 		84184524299DF9750002B147 /* DiffableTVSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiffableTVSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84184527299DF9750002B147 /* DiffableTVSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableTVSwiftUIApp.swift; sourceTree = "<group>"; };
-		84184529299DF9750002B147 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		84184529299DF9750002B147 /* PostsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsMainView.swift; sourceTree = "<group>"; };
 		8418452B299DF9760002B147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8418452E299DF9760002B147 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		84184536299DF9FD0002B147 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -99,8 +107,18 @@
 			children = (
 				84006EF629A1F7A600F1FC34 /* AlbumsMainView.swift */,
 				84006EF829A1FCD500F1FC34 /* AlbumGridView.swift */,
+				84006F0129A2ED0100F1FC34 /* GridImage.swift */,
 			);
 			path = Grid;
+			sourceTree = "<group>";
+		};
+		84006EFC29A2EA3400F1FC34 /* Swipes */ = {
+			isa = PBXGroup;
+			children = (
+				84006EFD29A2EA4A00F1FC34 /* PostCellTrailingSwipeView.swift */,
+				84006EFF29A2EA5A00F1FC34 /* PostCellLeadingSwipeView.swift */,
+			);
+			path = Swipes;
 			sourceTree = "<group>";
 		};
 		8418451B299DF9750002B147 = {
@@ -174,8 +192,10 @@
 		84184542299F1B6D0002B147 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				84006EFC29A2EA3400F1FC34 /* Swipes */,
 				84184538299DFE4B0002B147 /* SelectedView.swift */,
-				84184529299DF9750002B147 /* ContentView.swift */,
+				84184529299DF9750002B147 /* PostsMainView.swift */,
+				84006EFA29A2EA1A00F1FC34 /* PostCellView.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -267,18 +287,22 @@
 				84184539299DFE4B0002B147 /* SelectedView.swift in Sources */,
 				84184545299F1BAA0002B147 /* PhotoCellView.swift in Sources */,
 				8418453C299EECF70002B147 /* NetworkInteractor.swift in Sources */,
-				8418452A299DF9750002B147 /* ContentView.swift in Sources */,
+				8418452A299DF9750002B147 /* PostsMainView.swift in Sources */,
 				84006EF929A1FCD500F1FC34 /* AlbumGridView.swift in Sources */,
 				84006EEB29A1B55400F1FC34 /* PersistentContainer.swift in Sources */,
+				84006EFB29A2EA1A00F1FC34 /* PostCellView.swift in Sources */,
 				84184528299DF9750002B147 /* DiffableTVSwiftUIApp.swift in Sources */,
 				84006EE829A1B52D00F1FC34 /* CDInteractor.swift in Sources */,
 				84006EF729A1F7A600F1FC34 /* AlbumsMainView.swift in Sources */,
+				84006F0029A2EA5A00F1FC34 /* PostCellLeadingSwipeView.swift in Sources */,
 				84184549299F348B0002B147 /* AbstractModel.swift in Sources */,
 				8418453E299F18540002B147 /* PhotosMainView.swift in Sources */,
+				84006EFE29A2EA4A00F1FC34 /* PostCellTrailingSwipeView.swift in Sources */,
 				84006EF029A1C1F800F1FC34 /* CDToolbarView.swift in Sources */,
 				84006EE629A1B4C400F1FC34 /* Model.xcdatamodeld in Sources */,
 				84184547299F22DC0002B147 /* PhotoDetailView.swift in Sources */,
 				84006EEE29A1BFE500F1FC34 /* CDView.swift in Sources */,
+				84006F0229A2ED0100F1FC34 /* GridImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

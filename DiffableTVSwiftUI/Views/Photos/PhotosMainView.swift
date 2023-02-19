@@ -26,17 +26,8 @@ struct PhotosMainView: View {
             .navigationTitle("Photos")
             .listStyle(.plain)
             .task {
-                if photoFeed.photos.isEmpty {
-                    do {
-                        if let photos = try await networkInteractor.fetch(.photos) as? [Photo] {
-                            photoFeed.photos = photos
-                        } else {
-                            photoFeed.photos = []
-                        }
-                    } catch {
-                        photoFeed.photos = []
-                    }
-                }
+                guard photoFeed.photos.isEmpty else { return }
+                photoFeed.photos = (try? await networkInteractor.fetch(.photos) as? [Photo]) ?? []
             }
         }
     }

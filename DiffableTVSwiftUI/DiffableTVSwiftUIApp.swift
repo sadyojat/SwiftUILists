@@ -32,7 +32,7 @@ struct Tabs: View {
 
     var body: some View {
         TabView {
-            ContentView()
+            PostsMainView()
                 .tabItem {
                     Label("Posts", systemImage: "envelope")
                 }

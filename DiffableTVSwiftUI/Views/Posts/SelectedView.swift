@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SelectedView: View {
+struct SelectedPostView: View {
     @Binding var post: Post
     var body: some View {
         Text(post.title + "\(post.isFavorite)")

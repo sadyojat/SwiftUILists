@@ -33,16 +33,7 @@ struct AlbumsMainView: View {
 
 extension AlbumsMainView {
     fileprivate func loadData() async {
-        if albumFeed.albums.isEmpty {
-            do {
-                if let albums = try await networkInteractor.fetch(.albums()) as? [Album] {
-                    albumFeed.albums = albums
-                } else {
-                    albumFeed.albums = []
-                }
-            } catch {
-                albumFeed.albums = []
-            }
-        }
+        guard albumFeed.albums.isEmpty else { return }
+        albumFeed.albums = (try? await networkInteractor.fetch(.albums()) as? [Album]) ?? []
     }
 }

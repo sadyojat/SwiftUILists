@@ -80,7 +80,6 @@ struct AlbumGridView: View {
                 }
                 .padding()
             }
-
             .task {
                 await loadData()
             }
@@ -91,41 +90,8 @@ struct AlbumGridView: View {
 
 extension AlbumGridView {
     func loadData() async {
-        if photos.isEmpty {
-            if let list = try? await networkInteractor.fetch(.albums(id: album.id, caseType: .photos)) as? [Photo] {
-                photos = list
-            } else {
-                photos = []
-            }
-        }
+        guard photos.isEmpty else { return }
+        photos = (try? await networkInteractor.fetch(.albums(id: album.id, caseType: .photos)) as? [Photo]) ?? []
     }
 }
 
-
-struct GridImage: View {
-
-    @Binding var photo: Photo
-
-    @State private var image: UIImage?
-
-    let networkInteractor = NetworkInteractor()
-
-    var body: some View {
-        HStack {
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .cornerRadius(10.0)
-                    .padding()
-            } else {
-                Image(systemName: "arrow.down")
-            }
-        }
-        .task {
-            if let img = try? await networkInteractor.downloadPhoto(photo.url) {
-                image = img
-            }
-        }
-    }
-}
