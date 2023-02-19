@@ -16,6 +16,8 @@ struct DiffableTVSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             Tabs()
+                .environmentObject(coreDataInteractor)
+                // This setting is needed for @FetchRequest to work in the navigation stack
                 .environment(\.managedObjectContext, coreDataInteractor.moc)
         }
         .onChange(of: scenePhase) { _ in
@@ -29,6 +31,8 @@ struct DiffableTVSwiftUIApp: App {
 struct Tabs: View {
 
     @Environment(\.managedObjectContext) var moc
+
+    @EnvironmentObject var interactor: CDInteractor
 
     var body: some View {
         TabView {
@@ -44,7 +48,6 @@ struct Tabs: View {
                 .tabItem {
                     Label("Core Data", systemImage: "externaldrive")
                 }
-                .environment(\.managedObjectContext, moc)
         }
     }
 }

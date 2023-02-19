@@ -11,17 +11,14 @@ struct CDCellTrailingSwipeAction: View {
 
     @Environment(\.managedObjectContext) var moc
 
+    @EnvironmentObject var interactor: CDInteractor
+
     @State var post: PostManagedObject
 
     var body: some View {
         HStack {
             Button(role: .destructive) {
-                moc.delete(post)
-                do {
-                    try moc.save()
-                } catch let error {
-                    print("\(#file) | \(#line) | ERROR :: \(error) ")
-                }
+                interactor.delete(post, commitOnEachOp: true)
             } label: {
                 Label("Delete", image: "trash")
             }

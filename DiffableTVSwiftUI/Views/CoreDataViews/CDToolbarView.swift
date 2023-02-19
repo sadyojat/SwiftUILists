@@ -12,20 +12,19 @@ struct CDToolbarView: View {
 
     @Environment(\.managedObjectContext) var moc
 
+    @EnvironmentObject var interactor: CDInteractor
+
     var body: some View {
         HStack {
             AddRowButton()
-                .environment(\.managedObjectContext, moc)
             DeleteAllButton()
-                .environment(\.managedObjectContext, moc)
-
         }
     }
 }
 
 struct AddRowButton: View {
 
-    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var interactor: CDInteractor
     
     var body: some View {
         Button {
@@ -35,16 +34,12 @@ struct AddRowButton: View {
                 "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco",
                 "laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit",
             ]
-            let newPost = PostManagedObject(context: moc)
+            let newPost = PostManagedObject(context: interactor.moc)
             newPost.id = Int64(Int.random(in: 0..<1024))
             newPost.userId = Int64(Int.random(in: 1024..<2048))
             newPost.title = titles.randomElement()!
             newPost.body = bodies.randomElement()!
-            do {
-                try moc.save()
-            } catch let error as NSError {
-                print("Unable to save moc :: \(error) | \(error.userInfo)")
-            }
+            interactor.saveContext()
         } label: {
             Label("Add", systemImage: "plus")
         }
@@ -53,15 +48,16 @@ struct AddRowButton: View {
 
 struct DeleteAllButton: View {
 
-    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var interactor: CDInteractor
 
     @FetchRequest(sortDescriptors: []) var posts: FetchedResults<PostManagedObject>
 
     var body: some View {
         Button(role: .destructive) {
             for post in posts {
-                moc.delete(post)
+                interactor.delete(post)
             }
+            interactor.saveContext()
         } label: {
             Label("Delete", systemImage: "trash")
         }

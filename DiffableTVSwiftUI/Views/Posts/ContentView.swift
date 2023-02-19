@@ -32,10 +32,6 @@ struct ContentView: View {
             }
             .listStyle(.plain)
             .navigationTitle("Navigation Title")
-//            .toolbar {
-//                ToolbarView()
-//                    .environment(\.managedObjectContext, moc)
-//            }
             .task {
                 do {
                     if self.feed.posts.isEmpty {

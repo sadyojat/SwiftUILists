@@ -26,4 +26,11 @@ class CDInteractor: ObservableObject {
     func saveContext(_ backgroundContext: NSManagedObjectContext? = nil) {
         container.saveContext(backgroundContext)
     }
+
+    func delete(_ object: NSManagedObject, commitOnEachOp: Bool = false) {
+        moc.delete(object)
+        if commitOnEachOp {
+            saveContext()
+        }
+    }
 }

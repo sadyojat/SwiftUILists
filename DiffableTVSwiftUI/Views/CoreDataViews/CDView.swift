@@ -11,7 +11,7 @@ struct CDView: View {
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.title)]) var posts: FetchedResults<PostManagedObject>
 
-    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var interactor: CDInteractor
 
     var body: some View {
 
@@ -37,16 +37,10 @@ struct CDView: View {
             .navigationTitle(Text("CD Count = \(posts.count)"))
             .toolbar {
                 CDToolbarView()
-                    .environment(\.managedObjectContext, moc)
             }
         }
         .onDisappear {
-            guard moc.hasChanges else { return }
-            do {
-                try moc.save()
-            } catch let error as NSError {
-                print("\(#file) | \(#line) | ERROR :: Failed to save moc :: \(error) || \(error.userInfo)")
-            }
+            interactor.saveContext()
         }
     }
 }
