@@ -16,11 +16,11 @@ enum SwipeActionOptions {
 struct ContentView: View {
 
     @StateObject private var feed = Feed()
-
+    
     private let network = NetworkInteractor()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack {            
             List {
                 ForEach($feed.posts) { $post in
                     NavigationLink {
@@ -32,9 +32,10 @@ struct ContentView: View {
             }
             .listStyle(.plain)
             .navigationTitle("Navigation Title")
-            .toolbar {
-                ToolbarView()
-            }
+//            .toolbar {
+//                ToolbarView()
+//                    .environment(\.managedObjectContext, moc)
+//            }
             .task {
                 do {
                     if self.feed.posts.isEmpty {
@@ -129,16 +130,6 @@ struct LeadingSwipeView: View {
                 Label("Email", systemImage: "envelope")
             }
             .tint(.teal)
-        }
-    }
-}
-
-struct ToolbarView: View {
-    var body: some View {
-        Button {
-
-        } label: {
-            Label("Add", systemImage: "plus")
         }
     }
 }

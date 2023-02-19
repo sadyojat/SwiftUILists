@@ -9,19 +9,42 @@ import SwiftUI
 
 @main
 struct DiffableTVSwiftUIApp: App {
+    @StateObject private var coreDataInteractor = CDInteractor()
+
+    @Environment(\.scenePhase) var scenePhase
+
     var body: some Scene {
         WindowGroup {
-            TabView {
-                ContentView()
-                    .tabItem {
-                        Label("Posts", systemImage: "envelope")
-                    }
+            Tabs()
+                .environment(\.managedObjectContext, coreDataInteractor.moc)
+        }
+        .onChange(of: scenePhase) { _ in
+            coreDataInteractor.saveContext()
+        }
 
-                PhotosMainView()
-                    .tabItem {
-                        Label("Photos", systemImage: "photo")
-                    }
-            }
+    }
+}
+
+
+struct Tabs: View {
+
+    @Environment(\.managedObjectContext) var moc
+
+    var body: some View {
+        TabView {
+            ContentView()
+                .tabItem {
+                    Label("Posts", systemImage: "envelope")
+                }
+            PhotosMainView()
+                .tabItem {
+                    Label("Photos", systemImage: "photo")
+                }
+            CDView()
+                .tabItem {
+                    Label("Core Data", systemImage: "externaldrive")
+                }
+                .environment(\.managedObjectContext, moc)
         }
     }
 }
