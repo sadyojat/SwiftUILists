@@ -10,8 +10,6 @@ import SwiftUI
 
 struct CDToolbarView: View {
 
-    @Environment(\.managedObjectContext) var moc
-
     @EnvironmentObject var interactor: CDInteractor
 
     var body: some View {

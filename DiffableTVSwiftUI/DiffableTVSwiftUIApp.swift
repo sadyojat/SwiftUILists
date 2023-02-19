@@ -30,10 +30,6 @@ struct DiffableTVSwiftUIApp: App {
 
 struct Tabs: View {
 
-    @Environment(\.managedObjectContext) var moc
-
-    @EnvironmentObject var interactor: CDInteractor
-
     var body: some View {
         TabView {
             ContentView()
