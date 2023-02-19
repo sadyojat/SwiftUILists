@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Navigation Title")
+            .navigationTitle("Posts")
             .task {
                 do {
                     if self.feed.posts.isEmpty {

@@ -47,7 +47,7 @@ struct AlbumGridView: View {
 
 
     let layouts: [GridLayoutOptions] = [
-        .two(size: .fixed(250)),
+        .two(size: .fixed(100)),
         .three(size: .fixed(100)),
         .four(size: .fixed(100)),
         .two(size: .flexible()),
@@ -64,16 +64,27 @@ struct AlbumGridView: View {
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: layout) {
-                    ForEach(photos) { photo in
-                        GridImage(photo: photo)
+                    ForEach($photos) { $photo in
+                        NavigationLink {
+                            PhotoDetailView(photo: $photo)
+                        } label: {
+                            ZStack(alignment: .center) {
+                                GridImage(photo: $photo)
+                                if (photo.isFavorite ?? false) == true {
+                                    Image(systemName: "heart.fill")
+                                        .symbolRenderingMode(.multicolor)
+                                }
+                            }
+                        }
                     }
                 }
+                .padding()
             }
+
             .task {
                 await loadData()
             }
             .navigationTitle("Grid Layouts")
-
         }
     }
 }
@@ -93,7 +104,7 @@ extension AlbumGridView {
 
 struct GridImage: View {
 
-    var photo: Photo
+    @Binding var photo: Photo
 
     @State private var image: UIImage?
 
