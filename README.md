@@ -1,9 +1,7 @@
 # SwiftUILists : Building a simple List based app using SwiftUI
----
 Create a simple multiplatform practice app using SwiftUI for Mac, iOS and iPadOS.
 
 ## Overview
----
 This is a demo app that showcases how easy it is to spin up a list based app in SwiftUI. There are 4 tab surfaces in this demo:
 1. Posts
 2. Photos
