@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AbstractModel: Identifiable {
-    var id: Int { get set }    
+    var id: Int { get }    
 }

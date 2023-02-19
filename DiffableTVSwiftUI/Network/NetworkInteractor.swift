@@ -15,9 +15,25 @@ enum APIError: Error {
     case unknown
 }
 
-enum CallType: String {
-    case photos = "https://jsonplaceholder.typicode.com/photos"
-    case posts = "https://jsonplaceholder.typicode.com/posts"
+indirect enum CallType {
+    case photos
+    case posts
+    case albums(id: Int? = nil, caseType: CallType? = nil)
+
+    var resolvedUrlString: String {
+        switch self {
+            case .photos:
+                return "https://jsonplaceholder.typicode.com/photos"
+            case .posts:
+                return "https://jsonplaceholder.typicode.com/posts"
+            case .albums(let id, let callType):
+                if case .photos = callType, let id = id {
+                    return "https://jsonplaceholder.typicode.com/albums/\(id.self)/photos"
+                } else {
+                    return "https://jsonplaceholder.typicode.com/albums"
+                }
+        }
+    }
 }
 
 class ImageCache {
@@ -38,7 +54,7 @@ class ImageCache {
 class NetworkInteractor {
 
     func fetch(_ callType: CallType) async throws -> [any AbstractModel] {
-        guard let url = URL(string: callType.rawValue) else {
+        guard let url = URL(string: callType.resolvedUrlString) else {
             throw URLError(.badURL)
         }
         let (data, _) = try await URLSession.shared.data(from: url)
@@ -47,6 +63,12 @@ class NetworkInteractor {
                 return try JSONDecoder().decode([Photo].self, from: data)
             case .posts:
                 return try JSONDecoder().decode([Post].self, from: data)
+            case .albums(_, let callType):
+                if case .photos = callType {
+                    return try JSONDecoder().decode([Photo].self, from: data)
+                } else {
+                    return try JSONDecoder().decode([Album].self, from: data)
+                }
         }
     }
 

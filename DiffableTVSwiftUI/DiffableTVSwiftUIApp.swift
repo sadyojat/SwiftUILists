@@ -44,6 +44,11 @@ struct Tabs: View {
                 .tabItem {
                     Label("Core Data", systemImage: "externaldrive")
                 }
+            AlbumsMainView()
+                .tabItem {
+                    Label("Grids", systemImage: "grid.circle")
+                        .tint(.accentColor)
+                }
         }
     }
 }
