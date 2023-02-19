@@ -41,3 +41,8 @@ Once the list is populated, then reloading the data is a very simple step by spi
     }
 }
 ```
+
+To pass state between the main parent view and the child view that renders the content of each cell, I used `@Binding` property wrapper. This allows changes in both parent and child to reflect in each other. Using this, I was able to mark cells as favorited or now by using the trailing swipe actions. An example of this behavior is shown in this video.
+
+https://user-images.githubusercontent.com/5061719/219969808-3e3790bb-6f75-434f-bec5-8794aa0f95d8.mov
+
