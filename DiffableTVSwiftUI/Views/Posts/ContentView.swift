@@ -31,21 +31,19 @@ struct ContentView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Posts")
+            .navigationTitle("Posts \(feed.posts.count)")
             .task {
+                guard feed.posts.isEmpty else { return }
                 do {
-                    if self.feed.posts.isEmpty {
-                        if let posts = try await network.fetch(.posts) as? [Post] {
-                            self.feed.posts = posts
-                        }
-                    }
-
+                    feed.posts = try await network.fetch(.posts) as? [Post] ?? []
                 } catch {
                     print("Failed to retrieve posts")
                 }
             }
+            .onChange(of: feed.posts) { _ in
+                feed.posts.removeAll { $0.isMarkedForDeletion == true }
+            }
         }
-
     }
 }
 
@@ -69,7 +67,7 @@ struct CellContentView: View {
                 .opacity((post.isFavorite ?? false) ? 1 : 0)
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            TrailingSwipeView(isFavorite: $post.isFavorite)
+            TrailingSwipeView(post: $post)
         }
         .padding()
         .swipeActions(edge: .leading, allowsFullSwipe: false) {
@@ -80,12 +78,12 @@ struct CellContentView: View {
 
 struct TrailingSwipeView: View {
 
-    @Binding var isFavorite: Bool?
+    @Binding var post: Post
 
     var body: some View {
         HStack {
             Button(role: .destructive) {
-
+                post.isMarkedForDeletion = true
             } label: {
                 Label("Delete", systemImage: "minus.circle")
             }
@@ -98,10 +96,10 @@ struct TrailingSwipeView: View {
             .tint(.yellow)
 
             Button {
-                print("Changing state from \(String(describing: isFavorite)))")
-                isFavorite = !(isFavorite ?? false)
+                print("Changing state from \(String(describing: post.isFavorite)))")
+                post.isFavorite = !(post.isFavorite ?? false)
             } label: {
-                if isFavorite == true {
+                if post.isFavorite == true {
                     Label("Unfavorite", systemImage: "heart.slash")
                 } else {
                     Label("Favorite", systemImage: "heart")
@@ -129,10 +127,3 @@ struct LeadingSwipeView: View {
         }
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    @StateObject private var feed = Feed()
-//    static var previews: some View {
-//        ContentView(posts: $feed.posts)
-//    }
-//}

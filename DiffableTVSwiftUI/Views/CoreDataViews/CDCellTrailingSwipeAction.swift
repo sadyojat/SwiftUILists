@@ -20,7 +20,7 @@ struct CDCellTrailingSwipeAction: View {
             Button(role: .destructive) {
                 interactor.delete(post, commitOnEachOp: true)
             } label: {
-                Label("Delete", image: "trash")
+                Label("Delete", systemImage: "trash")
             }
         }
     }

@@ -14,6 +14,6 @@ struct Album: AbstractModel, Codable {
 }
 
 
-@MainActor class AlbumFeed: ObservableObject {
+class AlbumFeed: ObservableObject {
     @Published var albums: [Album] = [Album]()
 }

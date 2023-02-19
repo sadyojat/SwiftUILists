@@ -24,13 +24,7 @@ struct PhotoDetailView: View {
         .frame(maxHeight: 400)
         .padding()
         .task {
-            if image == nil {
-                do {
-                    image = try await network.downloadPhoto(photo.url)
-                } catch {
-                    image = nil
-                }
-            }
+            image = try? await network.downloadPhoto(photo.url)
         }
     }
 }
@@ -43,9 +37,12 @@ struct DetailImageView: View {
         if let image = image {
             Image(uiImage: image)
                 .resizable()
+                .cornerRadius(20)
                 .scaledToFit()
                 .frame(maxWidth: 600, maxHeight: 600)
+
                 .padding()
+
         } else {
             Image(systemName: "arrow.down")
         }
@@ -72,9 +69,3 @@ struct FavoriteButtonView: View {
         }
     }
 }
-
-//struct PhotoDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PhotoDetailView()
-//    }
-//}

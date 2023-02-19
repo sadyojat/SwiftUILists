@@ -18,7 +18,7 @@ struct Photo: AbstractModel, Codable {
 }
 
 
-@MainActor class PhotoFeed: ObservableObject {
+class PhotoFeed: ObservableObject {
     @Published var photos: [Photo] = [Photo]()
 
     func bindingPhoto(_ id: Photo.ID) -> Binding<Photo> {

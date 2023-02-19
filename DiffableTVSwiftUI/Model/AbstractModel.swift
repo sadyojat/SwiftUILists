@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AbstractModel: Identifiable {
+protocol AbstractModel: Identifiable, Equatable {
     var id: Int { get }    
 }
