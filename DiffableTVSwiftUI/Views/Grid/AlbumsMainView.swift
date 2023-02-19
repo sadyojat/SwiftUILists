@@ -22,7 +22,6 @@ struct AlbumsMainView: View {
                     } label: {
                         Label(album.title, systemImage: "book")
                     }
-
                 }
             }
             .listStyle(.plain)
