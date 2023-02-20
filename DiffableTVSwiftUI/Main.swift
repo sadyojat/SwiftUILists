@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct DiffableTVSwiftUIApp: App {
+struct MainApp: App {
     @StateObject private var coreDataInteractor = CDInteractor()
 
     @Environment(\.scenePhase) var scenePhase

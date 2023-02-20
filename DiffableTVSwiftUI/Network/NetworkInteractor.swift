@@ -42,6 +42,8 @@ class ImageCache {
 
     let cache = NSCache<NSString, UIImage>()
 
+    private init() {}
+
     func image(for key: NSString) -> UIImage? {
         cache.object(forKey: key)
     }
