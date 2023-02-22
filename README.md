@@ -63,7 +63,7 @@ Integrating Core Data in swiftUI is so much more simpler than in native Swift co
 
 After adding the Core data model file in the project, create a custom subclass of `NSPersistentContainer` and use that as an environment object. This navigation stack introduces the use of `@EnvironmentObject` property wrapper. Please pay note to the fact that there is a subtle difference between the `@Environment` and the `@EnvironmentObject` property wrappers. 
 
-> `@Environment` is a preset list of keypaths that are maintained by the swiftUI environment while`@EnvironmentObject` is user defined and has to conform to `ObservableObject`, the same way as `@StateObject` types need to. 
+> `@Environment` is a preset list of keypaths that are maintained by the swiftUI environment while`@EnvironmentObject` is user defined and has to conform to `ObservableObject`, the same way as `@StateObject` types need to. It is also important to note that `@EnvironmentObject` instances are **NOT** `singletons`. `Singleton` instances are available in memory for the entire app to use, while `@EnvironmentObject` instances are only available within the navigation stack where they are setup. Trying to access an EnvironmentObject in a stack different from one where it is setup, will trigger a **RUNTIME** crash.
 
 You would also see the use of `@FetchResults` property wrapper here. This is used to retrieve the list of managed object instances placed in the core data store. 
 
