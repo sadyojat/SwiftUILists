@@ -9,27 +9,23 @@ import SwiftUI
 
 @main
 struct MainApp: App {
-    @StateObject private var coreDataInteractor = CDInteractor()
-
-    @Environment(\.scenePhase) var scenePhase
+    
 
     var body: some Scene {
         WindowGroup {
             Tabs()
-                .environmentObject(coreDataInteractor)
-                // This setting is needed for @FetchRequest to work in the navigation stack
-                .environment(\.managedObjectContext, coreDataInteractor.moc)
+                
         }
-        .onChange(of: scenePhase) { _ in
-            coreDataInteractor.saveContext()
-        }
+        
 
     }
 }
 
 
 struct Tabs: View {
+    @StateObject private var coreDataInteractor = CDInteractor()
 
+    @Environment(\.scenePhase) var scenePhase
     var body: some View {
         TabView {
             PostsMainView()
@@ -41,6 +37,9 @@ struct Tabs: View {
                     Label("Photos", systemImage: "photo")
                 }
             CDView()
+                .environmentObject(coreDataInteractor)
+                // This setting is needed for @FetchRequest to work in the navigation stack
+                .environment(\.managedObjectContext, coreDataInteractor.moc)
                 .tabItem {
                     Label("Core Data", systemImage: "externaldrive")
                 }
@@ -49,6 +48,9 @@ struct Tabs: View {
                     Label("Grids", systemImage: "grid.circle")
                         .tint(.accentColor)
                 }
+        }
+        .onChange(of: scenePhase) { _ in
+            coreDataInteractor.saveContext()
         }
     }
 }

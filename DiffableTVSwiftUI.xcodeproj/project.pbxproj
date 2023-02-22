@@ -74,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EA5849829A567CF00230CD5 /* MainApp */ = {
+			isa = PBXGroup;
+			children = (
+				84184527299DF9750002B147 /* Main.swift */,
+			);
+			path = MainApp;
+			sourceTree = "<group>";
+		};
 		84006EE329A1B4A800F1FC34 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,11 +148,11 @@
 		84184526299DF9750002B147 /* DiffableTVSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1EA5849829A567CF00230CD5 /* MainApp */,
 				84006EE329A1B4A800F1FC34 /* CoreData */,
 				84184541299F1B660002B147 /* Views */,
 				8418453A299EECE90002B147 /* Network */,
 				84184535299DF9F30002B147 /* Model */,
-				84184527299DF9750002B147 /* Main.swift */,
 				8418452B299DF9760002B147 /* Assets.xcassets */,
 				8418452D299DF9760002B147 /* Preview Content */,
 			);
