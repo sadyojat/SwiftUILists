@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostCellView: View {
 
-    @Binding var post: Post
+    @StateObject var post: PostVM
 
     var body: some View {
         HStack {
@@ -24,10 +24,10 @@ struct PostCellView: View {
             Spacer()
             Image(systemName: "heart.fill")
                 .symbolRenderingMode(.multicolor)
-                .opacity((post.isFavorite ?? false) ? 1 : 0)
+                .opacity(post.isFavorite ? 1 : 0)
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            PostCellTrailingSwipeView(post: $post)
+            PostCellTrailingSwipeView(post: post)
         }
         .padding()
         .swipeActions(edge: .leading, allowsFullSwipe: false) {

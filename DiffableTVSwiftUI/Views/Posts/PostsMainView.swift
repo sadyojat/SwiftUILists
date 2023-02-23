@@ -5,6 +5,7 @@
 //  Created by Alok Irde on 2/15/23.
 //
 
+import Combine
 import SwiftUI
 
 
@@ -17,27 +18,39 @@ struct PostsMainView: View {
 
     @StateObject private var feed = Feed()
     
+    
+
+    
     private let network = NetworkInteractor()
 
     var body: some View {
         NavigationStack {            
             List {
-                ForEach($feed.posts) { $post in
+                ForEach(feed.postViewModels) { vm in
                     NavigationLink {
-                        SelectedPostView(post: $post)
+                        SelectedPostView(vm: vm)
                     } label: {
-                        PostCellView(post: $post)
+                        PostCellView(post: vm)
                     }
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Posts \(feed.posts.count)")
+            .navigationTitle("Posts \(feed.postViewModels.count)")
             .task {
-                guard feed.posts.isEmpty else { return }
-                feed.posts = (try? await network.fetch(.posts) as? [Post]) ?? []
+                guard feed.postViewModels.isEmpty else { return }
+                
+                if let posts = try? await network.fetch(.posts) as? [Post] {
+                    feed.postViewModels = posts.compactMap({
+                        $0.translateToViewModel()
+                    })
+                } else {
+                    feed.postViewModels = []
+                }
             }
-            .onChange(of: feed.posts) { _ in
-                feed.posts.removeAll { $0.isMarkedForDeletion == true }
+            .onChange(of: feed.postViewModels) { _ in
+                print("B:: \(feed.postViewModels.count)")
+                feed.postViewModels.removeAll { $0.isMarkedForDeletion == true }
+                print("A:: \(feed.postViewModels.count)")
             }
         }
     }

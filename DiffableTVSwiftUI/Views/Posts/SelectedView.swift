@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SelectedPostView: View {
-    @Binding var post: Post
+    @StateObject var vm: PostVM
     var body: some View {
-        Text(post.title + "\(post.isFavorite)")
+        Text(vm.title + " - " + "\(vm.isFavorite)")
     }
 }

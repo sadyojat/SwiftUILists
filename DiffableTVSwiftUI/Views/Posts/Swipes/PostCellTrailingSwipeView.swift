@@ -9,12 +9,13 @@ import SwiftUI
 
 struct PostCellTrailingSwipeView: View {
 
-    @Binding var post: Post
+    @StateObject var post: PostVM
 
     var body: some View {
         HStack {
             Button(role: .destructive) {
                 post.isMarkedForDeletion = true
+                NotificationCenter.default.post(name: .postMarkedForDeletion, object: post)
             } label: {
                 Label("Delete", systemImage: "minus.circle")
             }
@@ -28,7 +29,7 @@ struct PostCellTrailingSwipeView: View {
 
             Button {
                 print("Changing state from \(String(describing: post.isFavorite)))")
-                post.isFavorite = !(post.isFavorite ?? false)
+                post.isFavorite = !post.isFavorite
             } label: {
                 if post.isFavorite == true {
                     Label("Unfavorite", systemImage: "heart.slash")
