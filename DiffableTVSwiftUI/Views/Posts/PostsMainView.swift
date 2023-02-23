@@ -18,9 +18,6 @@ struct PostsMainView: View {
 
     @StateObject private var feed = Feed()
     
-    
-
-    
     private let network = NetworkInteractor()
 
     var body: some View {
@@ -46,11 +43,6 @@ struct PostsMainView: View {
                 } else {
                     feed.postViewModels = []
                 }
-            }
-            .onChange(of: feed.postViewModels) { _ in
-                print("B:: \(feed.postViewModels.count)")
-                feed.postViewModels.removeAll { $0.isMarkedForDeletion == true }
-                print("A:: \(feed.postViewModels.count)")
             }
         }
     }

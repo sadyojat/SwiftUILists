@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostCellTrailingSwipeView: View {
 
-    @StateObject var post: PostVM
+    @ObservedObject var post: PostVM
 
     var body: some View {
         HStack {

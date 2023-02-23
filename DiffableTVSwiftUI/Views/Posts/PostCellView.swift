@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostCellView: View {
 
-    @StateObject var post: PostVM
+    @ObservedObject var post: PostVM
 
     var body: some View {
         HStack {
