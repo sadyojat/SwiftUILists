@@ -15,19 +15,24 @@ struct PhotosMainView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach($photoFeed.photos) { $photo in
+                ForEach(photoFeed.photoViewModels) { vm in
                     NavigationLink {
-                        PhotoDetailView(photo: $photo)
+                        PhotoDetailView(viewModel: vm)
                     } label: {
-                        PhotoCellView(photo: $photo)
+                        PhotoCellView(viewModel: vm)
                     }
                 }
             }
             .navigationTitle("Photos")
             .listStyle(.plain)
             .task {
-                guard photoFeed.photos.isEmpty else { return }
-                photoFeed.photos = (try? await networkInteractor.fetch(.photos) as? [Photo]) ?? []
+                guard photoFeed.photoViewModels.isEmpty else { return }
+                
+                if let photos = try? await networkInteractor.fetch(.photos) as? [Photo] {
+                    photoFeed.photoViewModels = photos.compactMap({
+                        $0.convertToViewModel()
+                    })
+                }
             }
         }
     }

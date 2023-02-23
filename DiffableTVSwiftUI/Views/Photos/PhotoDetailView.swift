@@ -8,31 +8,31 @@
 import SwiftUI
 
 struct PhotoDetailView: View {
-
-    @Binding var photo: Photo
+    
+    @ObservedObject var viewModel: PhotoVM
 
     @State private var image: UIImage?
 
-    private let network = NetworkInteractor()
-
     var body: some View {
         VStack(alignment: .center) {
-            DetailImageView(image: $image)
+            DetailImageView(imageUrl: viewModel.url)
             Spacer()
-            FavoriteButtonView(photo: $photo)
+            FavoriteButtonView(viewModel: viewModel)
         }
         .frame(maxHeight: 400)
         .padding()
-        .task {
-            image = try? await network.downloadPhoto(photo.url)
-        }
+        
     }
 }
 
 struct DetailImageView: View {
 
-    @Binding var image: UIImage?
-
+    @State private var image: UIImage?
+    
+    @State var imageUrl: String
+    
+    private let network = NetworkInteractor()
+    
     var body: some View {
         if let image = image {
             Image(uiImage: image)
@@ -42,27 +42,32 @@ struct DetailImageView: View {
                 .frame(maxWidth: 600, maxHeight: 600)
 
                 .padding()
-
         } else {
             Image(systemName: "arrow.down")
+                .task {
+                    if image == nil {
+                        image = try? await network.downloadPhoto(imageUrl)
+                    }
+
+                }
         }
     }
 }
 
 struct FavoriteButtonView: View {
 
-    @Binding var photo: Photo
+    @ObservedObject var viewModel: PhotoVM
 
     var body: some View {
-        if photo.isFavorite == true {
+        if viewModel.isFavorite == true {
             Button {
-                photo.isFavorite = false
+                viewModel.isFavorite = false
             } label: {
                 Label("Unfavorite", systemImage: "heart.slash")
             }
         } else {
             Button {
-                photo.isFavorite = true
+                viewModel.isFavorite = true
             } label: {
                 Label("Mark as Favorite", systemImage: "heart.fill")
             }

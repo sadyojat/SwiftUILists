@@ -66,7 +66,7 @@ struct AlbumGridView: View {
                 LazyVGrid(columns: layout) {
                     ForEach($photos) { $photo in
                         NavigationLink {
-                            PhotoDetailView(photo: $photo)
+//                            PhotoDetailView(photo: $photo)
                         } label: {
                             ZStack(alignment: .center) {
                                 GridImage(photo: $photo)

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PhotoCellView: View {
-
-    @Binding var photo: Photo
+    
+    @ObservedObject var viewModel: PhotoVM
 
     @State private var thumbnail: UIImage?
 
@@ -25,18 +25,18 @@ struct PhotoCellView: View {
             } else {
                 Image(systemName: "arrow.down")
             }
-            Text(photo.title)
+            Text(viewModel.title)
                 .multilineTextAlignment(.leading)
             Spacer()
             Image(systemName: "heart.fill")
                 .symbolRenderingMode(.multicolor)
-                .opacity((photo.isFavorite ?? false) ? 1 : 0)
+                .opacity(viewModel.isFavorite ? 1 : 0)
         }
         .padding()
         .task {
             guard thumbnail == nil else { return }
             do {
-                thumbnail = try await network.downloadPhoto(photo.thumbnailUrl)
+                thumbnail = try await network.downloadPhoto(viewModel.thumbnailUrl)
             } catch {
                 thumbnail = nil
             }
