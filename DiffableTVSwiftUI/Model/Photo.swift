@@ -23,7 +23,7 @@ struct Photo: AbstractModel, Codable {
 
 class PhotoVM: Identifiable, ObservableObject, Equatable {
     let albumId: Int
-    var id: Int
+    var id: String
     let title: String
     let url: String
     let thumbnailUrl: String
@@ -31,7 +31,7 @@ class PhotoVM: Identifiable, ObservableObject, Equatable {
     
     init(albumId: Int, id: Int, title: String, url: String, thumbnailUrl: String, isFavorite: Bool = false) {
         self.albumId = albumId
-        self.id = id
+        self.id = UUID().uuidString + "_\(id)"
         self.title = title
         self.url = url
         self.thumbnailUrl = thumbnailUrl

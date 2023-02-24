@@ -14,10 +14,7 @@ struct MainApp: App {
     var body: some Scene {
         WindowGroup {
             Tabs()
-                
         }
-        
-
     }
 }
 
@@ -26,6 +23,7 @@ struct Tabs: View {
     @StateObject private var coreDataInteractor = CDInteractor()
 
     @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
         TabView {
             PostsMainView()
