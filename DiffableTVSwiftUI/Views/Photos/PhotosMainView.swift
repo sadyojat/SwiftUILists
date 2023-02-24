@@ -15,6 +15,8 @@ struct PhotosMainView: View {
     @State private var presentingList: [PhotoVM] = []
     
     @State private var searchText = ""
+    
+    @State private var searchWorkItem: DispatchWorkItem?
 
     var body: some View {
         NavigationStack {
@@ -34,12 +36,22 @@ struct PhotosMainView: View {
             .onChange(of: searchText, perform: { newValue in
                 if searchText.count == 0 {
                     presentingList = photoFeed.photoViewModels
+                } else {
+                    searchWorkItem?.cancel()
+                    searchWorkItem = DispatchWorkItem(block: {
+                        presentingList = photoFeed.photoViewModels.filter({ $0.title.lowercased().contains(searchText.lowercased())})
+                    })
+                    DispatchQueue.main.async(execute: searchWorkItem!)
                 }
             })
             .navigationTitle("Photos")
             .listStyle(.plain)
             .task {
                 guard photoFeed.photoViewModels.isEmpty else { return }
+                
+                searchWorkItem = DispatchWorkItem(block: {
+                    presentingList = photoFeed.photoViewModels.filter({ $0.title.lowercased().contains(searchText.lowercased())})
+                })
                 
                 if let photos = try? await networkInteractor.fetch(.photos) as? [Photo] {
                     photoFeed.photoViewModels = photos.compactMap({
