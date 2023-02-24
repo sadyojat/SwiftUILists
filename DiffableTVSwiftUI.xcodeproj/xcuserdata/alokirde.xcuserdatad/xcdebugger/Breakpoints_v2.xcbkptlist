@@ -20,5 +20,98 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6D791EAA-20C3-43CD-8807-4805B75B3496"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C84E50AD-1021-4814-959D-3BC5F0B59640"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "C84E50AD-1021-4814-959D-3BC5F0B59640 - deeab7aa82fd0e97"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in DiffableTVSwiftUI.PhotosMainView.body.getter : some"
+                  moduleName = "DiffableTVSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alokirde/Developer/github/sadyojat/SwiftUILists/DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "224">
+               </Location>
+               <Location
+                  uuid = "C84E50AD-1021-4814-959D-3BC5F0B59640 - a70908b2b43f6c16"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in DiffableTVSwiftUI.PhotosMainView.body.getter : some"
+                  moduleName = "DiffableTVSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alokirde/Developer/github/sadyojat/SwiftUILists/DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  uuid = "C84E50AD-1021-4814-959D-3BC5F0B59640 - 18f737a8d1b0e84f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (DiffableTVSwiftUI.Photo) -&gt; Swift.Optional&lt;DiffableTVSwiftUI.PhotoVM&gt; in closure #1 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in DiffableTVSwiftUI.PhotosMainView.body.getter : some"
+                  moduleName = "DiffableTVSwiftUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alokirde/Developer/github/sadyojat/SwiftUILists/DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2B59C2E-90F2-45FF-A323-381EDAA0975E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DiffableTVSwiftUI/Views/Photos/PhotosMainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
