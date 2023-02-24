@@ -90,4 +90,56 @@ This surface introduces the use of `LazyVGrid` and `LazyHGrid`. These Grid types
 
 https://user-images.githubusercontent.com/5061719/219984085-b57360b9-9237-43c3-abd1-db34cd1b9e84.mov
 
+---
 
+## Optimizations
+
+The initial implementation of the `Post` and `Photos` list extensively used `bindings`. While bindings are very powerful constructs, using bindings to share state across the entire stack eventually carries a lot of overhead, since every small change to a binding object could trigger full list reloads across the stack. This will manifest in slow UI updates/ jitter/ bad user experience. 
+
+To overcome this problem, I moved the codebase to adhere strictly to MVVM design pattern. 
+
+To adapt to this pattern requires the creation of a stateful ViewModel layer from the stateless data model objects. Its important to remember that when we start managing state, we also need direct referencing of the managing object, and hence such stateful model objects are always created as reference types. In addition, since these object state changes have to be propagated thru the stack, remember to conform these to `ObservableObject` protocol. 
+
+An example of how this could be done is shown here in the Photos model
+
+```
+struct Photo: AbstractModel, Codable {
+    let albumId: Int
+    var id: Int
+    let title: String
+    let url: String
+    let thumbnailUrl: String
+    var isFavorite: Bool? = false
+    
+    func convertToViewModel() -> PhotoVM {
+        PhotoVM(albumId: albumId, id: id, title: title, url: url, thumbnailUrl: thumbnailUrl)
+    }
+}
+
+class PhotoVM: Identifiable, ObservableObject, Equatable {
+    let albumId: Int
+    var id: Int
+    let title: String
+    let url: String
+    let thumbnailUrl: String
+    @Published var isFavorite: Bool = false
+    
+    init(albumId: Int, id: Int, title: String, url: String, thumbnailUrl: String, isFavorite: Bool = false) {
+        self.albumId = albumId
+        self.id = id
+        self.title = title
+        self.url = url
+        self.thumbnailUrl = thumbnailUrl
+        self.isFavorite = isFavorite
+    }
+    
+    static func == (_ lhs: PhotoVM, _ rhs: PhotoVM) -> Bool {
+        lhs === rhs
+    }
+}
+```
+Also **note** the use of `@Published` property wrapper here. We use this to notify subscribers of changes to the isFavorite property. 
+
+With this change, you can now pass the individual viewModel object thru the stack as a `ObservedObject`. Remember that the main difference between the `StateObject` and an `ObservedObject` is that a StateObject is owned and instantiated by the SwiftUI View, while the ObservedObject can be instantiated elsewhere and observed. With this change, any update to the `isFavorite` property is observed by the subscribing SwiftUI type. For instance incase of Photos list, PhotoCellView subscribes to this property change, and automatically marks its favorited icon as opaque when the detail view marks the photo as a favorite. 
+
+This change removes the need for the entire list to refresh to show individual cell updates in the list, making the entire app experience so much more smoother. 
