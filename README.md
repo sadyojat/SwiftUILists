@@ -9,6 +9,10 @@ This is a demo app that showcases how easy it is to spin up a list based app in 
 4. Grid
 
 It uses `async/ await` concurrency api's for network interaction, and uses the `https://jsonplaceholder.typicode.com` api's as network api source. 
+
+https://user-images.githubusercontent.com/5061719/221091642-84310f45-6ad6-472e-9440-6773873ac858.mov
+
+
 This is a simple REST api, and can be used by developers free of cost for testing their demo apps. 
 
 ---
@@ -143,3 +147,43 @@ Also **note** the use of `@Published` property wrapper here. We use this to noti
 With this change, you can now pass the individual viewModel object thru the stack as a `ObservedObject`. Remember that the main difference between the `StateObject` and an `ObservedObject` is that a StateObject is owned and instantiated by the SwiftUI View, while the ObservedObject can be instantiated elsewhere and observed. With this change, any update to the `isFavorite` property is observed by the subscribing SwiftUI type. For instance incase of Photos list, PhotoCellView subscribes to this property change, and automatically marks its favorited icon as opaque when the detail view marks the photo as a favorite. 
 
 This change removes the need for the entire list to refresh to show individual cell updates in the list, making the entire app experience so much more smoother. 
+
+---
+
+## Implementing Search
+
+Search is one of the most common features that an iOS list needs. Search has to be seamless, easy and should not cause UI hitching when it executes. As such SwiftUI provides an inbuilt feature that makes search addition virtually a breeze. All it takes is a block of function calls as shown below. 
+
+`searchable` -> presents the search bar, and provides default cancel and search text bindings
+`.onSubmit(of: .search...)` -> is called when the user enters return after typing in the search token
+`.onChange` -> is called for changes to the listened @State variable. 
+
+The implementation of search is self explanatory here, not a lot of complex coding, and what used to take a view controller in Swift takes but a few lines in SwiftUI to spin up. 
+
+These commits show an example implementation of search
+1. [Commit#1](https://github.com/sadyojat/SwiftUILists/commit/0604f9eb8de0462583d26a1d255d0390e2a85809)
+2. [Commit#2](https://github.com/sadyojat/SwiftUILists/commit/95771e1dfb045c3ae56697826e56d37268fdcc37)
+
+
+```
+.searchable(text: $searchText)
+.onSubmit(of: .search, {
+    presentingList = photoFeed.photoViewModels.filter({ $0.title.lowercased().contains(searchText.lowercased())})
+})
+.onChange(of: searchText, perform: { newValue in
+    if searchText.count == 0 {
+        presentingList = photoFeed.photoViewModels
+    } else {
+        searchWorkItem?.cancel()
+        searchWorkItem = DispatchWorkItem(block: {
+            presentingList = photoFeed.photoViewModels.filter({ $0.title.lowercased().contains(searchText.lowercased())})
+        })
+        DispatchQueue.main.async(execute: searchWorkItem!)
+    }
+})
+```
+
+### Search Experience
+
+https://user-images.githubusercontent.com/5061719/221091713-832a5355-d3e6-484e-9d6a-cf36f3d0d8dc.mov
+
